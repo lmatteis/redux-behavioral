@@ -12,11 +12,6 @@ function createBehavioralMiddleware(threads) {
         yield {
           wait: [
             (event, payload) => {
-              console.log('dispatching', {
-                type: event,
-                payload,
-                bpThread: true
-              });
               dispatch({ type: event, payload, bpThread: true });
               return true;
             }
@@ -29,6 +24,9 @@ function createBehavioralMiddleware(threads) {
       // if it's a BP event continue reducers, otherwise return null
       // we only can run to the reducers and other middlewars
       // stuff coming "out" of the b-threads.
+      if (!action) {
+        return;
+      }
       if (action.bpThread) {
         return next(action);
       } else {

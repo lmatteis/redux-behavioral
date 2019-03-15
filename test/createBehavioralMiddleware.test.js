@@ -18,16 +18,8 @@ test('createBehavioralMiddleware single click', () => {
   store.dispatch({ type: 'CLICK' });
   const [initAction, ...rest] = store.getState();
   expect(rest).toMatchObject([
-    {
-      type: { type: 'CLICK', payload: undefined },
-      payload: undefined,
-      bpThread: true
-    },
-    {
-      type: { type: 'SHOW_MODAL' },
-      payload: undefined,
-      bpThread: true
-    }
+    { bpThread: true, priority: 1, type: 'CLICK' },
+    { bpThread: true, priority: 1, type: 'SHOW_MODAL' }
   ]);
 });
 
@@ -53,31 +45,13 @@ test('createBehavioralMiddleware double click with block', () => {
 
   store.dispatch({ type: 'CLICK' });
   const [initAction, ...rest] = store.getState();
-  expect(rest).toMatchObject([
-    {
-      type: { type: 'CLICK', payload: undefined },
-      payload: undefined,
-      bpThread: true
-    }
-  ]);
+  expect(rest).toMatchObject([{ bpThread: true, priority: 1, type: 'CLICK' }]);
   // Do second click
   store.dispatch({ type: 'CLICK' });
   const [initAction2, ...rest2] = store.getState();
   expect(rest2).toMatchObject([
-    {
-      type: { type: 'CLICK', payload: undefined },
-      payload: undefined,
-      bpThread: true
-    },
-    {
-      type: { type: 'CLICK', payload: undefined },
-      payload: undefined,
-      bpThread: true
-    },
-    {
-      type: { type: 'SHOW_MODAL' },
-      payload: undefined,
-      bpThread: true
-    }
+    { bpThread: true, priority: 1, type: 'CLICK' },
+    { bpThread: true, priority: 1, type: 'CLICK' },
+    { bpThread: true, priority: 1, type: 'SHOW_MODAL' }
   ]);
 });

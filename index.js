@@ -11,8 +11,8 @@ function createBehavioralMiddleware(threads) {
       while (true) {
         yield {
           wait: [
-            (event, payload) => {
-              dispatch({ type: event, payload, bpThread: true });
+            event => {
+              dispatch(Object.assign({}, event, { bpThread: true }));
               return true;
             }
           ]
@@ -30,7 +30,7 @@ function createBehavioralMiddleware(threads) {
       if (action.bpThread) {
         return next(action);
       } else {
-        bp.request({ type: action.type, payload: action.payload });
+        bp.request(action);
         return null;
       }
     };

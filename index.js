@@ -6,7 +6,7 @@ function createBehavioralMiddleware(threads) {
     let pr = 1;
     bp.run();
 
-    threads.forEach(thread => bp.addBThread(``, pr++, thread));
+    threads.forEach(thread => bp.addBThread(``, pr++, thread.bind(bp)));
     bp.addBThread('dispatch', pr++, function*() {
       while (true) {
         yield {

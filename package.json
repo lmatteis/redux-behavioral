@@ -1,6 +1,6 @@
 {
   "name": "redux-behavioral",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Behavioral Programming for Redux",
   "main": "lib",
   "files": [
@@ -20,6 +20,6 @@
     "redux": "^4.0.1"
   },
   "dependencies": {
-    "behavioral": "^1.0.2"
+    "behavioral": "^1.0.3"
   }
 }
